@@ -124,6 +124,72 @@
             font-weight: bold;
         }
 
+        /* Banner Dia das Mães */
+        .mothers-day {
+            margin-top: 50px;
+            background: linear-gradient(45deg, #ff0077, #ff66b3);
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        .mothers-day h2 {
+            font-size: 2.5rem;
+            margin: 0;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .mothers-day p {
+            font-size: 1.2rem;
+            margin: 15px 0 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mothers-day::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .mothers-day:hover::before {
+            transform: rotate(45deg) translate(20px, 20px);
+        }
+
+        .flowers {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            opacity: 0.3;
+        }
+
+        .flower1 {
+            top: 10px;
+            left: 10px;
+            transform: rotate(-15deg);
+        }
+
+        .flower2 {
+            bottom: 10px;
+            right: 10px;
+            transform: rotate(15deg);
+        }
+
         @media (max-width: 768px) {
             .title {
                 font-size: 2.5rem;
@@ -135,6 +201,14 @@
                 left: -20px;
                 top: -15px;
             }
+
+            .mothers-day h2 {
+                font-size: 1.8rem;
+            }
+
+            .mothers-day p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -143,7 +217,6 @@
         <header>
             <img src="Imagens/462276499_8667323720002959_8764595303679250411_n.jpg" alt="Logo Naldo" class="logo">
             <h1 class="title">naldo.com</h1>
-        
         </header>
 
         <div class="search-bar">
@@ -155,29 +228,36 @@
             <div class="ad">
                 <img src="Imagens/95357114_2934189836698113_8021379766386950144_n.jpg" alt="Anúncio 1">
                 <div class="ad-info">
-                    <div class="ad-title">Kit dia das mães</div>
+                    <div class="ad-title">kit dia das mães</div>
                     <div class="ad-price">R$ 55,00</div>
-                    <div class="ad-description">Camisa+caneca personalizada.</div>
+                    <div class="ad-description">camisa+caneca personalizada.</div>
                 </div>
             </div>
 
             <div class="ad">
                 <img src="Imagens/95477090_2934190600031370_6796252233672425472_n.jpg" alt="Anúncio 2">
                 <div class="ad-info">
-                    <div class="ad-title">Kit dia das mães 02</div>
+                    <div class="ad-title">kit dia das mães 02</div>
                     <div class="ad-price">R$ 55,00</div>
-                    <div class="ad-description">Camisa+caneca personalizada.</div>
+                    <div class="ad-description">camisa+caneca personalizada.</div>
                 </div>
             </div>
 
             <div class="ad">
                 <img src="Imagens/96465762_2934185620031868_1760405484294111232_n.jpg" alt="Anúncio 3">
                 <div class="ad-info">
-                    <div class="ad-title">Kit dia das mães 02</div>
+                    <div class="ad-title">kit dia das mães 03</div>
                     <div class="ad-price">R$ 55,00</div>
-                    <div class="ad-description">Camisa+caneca personalizada.</div>
+                    <div class="ad-description">camisa+caneca personalizada.</div>
                 </div>
             </div>
+        </div>
+
+        <!-- Banner Dia das Mães -->
+        <div class="mothers-day">
+            
+            <h2>Vem comemorar o Dia das Mães!</h2>
+            <p>Com os melhores produtos da baixada aqui na naldo.com</p>
         </div>
     </div>
 
@@ -190,6 +270,23 @@
             const y = e.clientY / window.innerHeight;
             
             title.style.transform = `rotateY(${x * 20}deg) rotateX(${-y * 10}deg)`;
+        });
+
+        // Interatividade para o banner Dia das Mães
+        const mothersDayBanner = document.querySelector('.mothers-day');
+        
+        mothersDayBanner.addEventListener('mousemove', (e) => {
+            const rect = mothersDayBanner.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+            
+            mothersDayBanner.style.transform = `perspective(1000px) rotateX(${(0.5 - y) * 10}deg) rotateY(${(x - 0.5) * 10}deg)`;
+            mothersDayBanner.style.boxShadow = `${(x - 0.5) * 20}px ${(y - 0.5) * 20}px 30px rgba(0,0,0,0.3)`;
+        });
+
+        mothersDayBanner.addEventListener('mouseleave', () => {
+            mothersDayBanner.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            mothersDayBanner.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
         });
     </script>
 </body>
